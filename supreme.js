@@ -1,8 +1,10 @@
+var Twitter = require('twitter');
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 const _ = require('underscore');
 const fs = require('fs');
 const request = require('request');
+const SlackWebhook = require('slack-webhook')
 const discord = require('discord-bot-webhook');
 const Discord = require('discord.js');
 var originalSoldOutItems = [];
@@ -76,7 +78,7 @@ client.on('message', message => {
   //.addField('Inline field title', 'test', false)
   .setImage('https://assets.supremenewyork.com/184829/ma/UdOuR0JdzFg.jpg')
   .setTimestamp()
-  .setFooter('Cook your shit', 'https://cdn.discordapp.com/attachments/352526312788721675/688427183290843224/Artboard_1.png');
+  .setFooter('Cook your shit', 'https://cdn.discordapp.com/attachments/352526312788721675/688516950543958113/Untitled-1.jpg');
      
     message.channel.send(embed);
   }
@@ -84,7 +86,7 @@ client.on('message', message => {
 
 
 //token -> burde gemme den i en config (?)
-client.login('Njg3ODA4MDg3MzY4NjYzMDQz.Xmw0-A.P-v4qcOuelPLlc1PtHmnd0GC6to');
+client.login('Njg3ODA4MDg3MzY4NjYzMDQz.Xm0y-g.MOucoyUB1IUw-2QrzUxDbeAuNJw');
 
 
 
@@ -205,17 +207,36 @@ function postToDiscord(restockedItems){
 
 
 
+'use strict';
 
+/**
+ * An example of how you can send embeds
+ */
 
+// Extract the required classes from the discord.js module
+const { Client, MessageEmbed } = require('discord.js');
 
+// Create an instance of a Discord client
+const client = new Client();
+
+/**
+ * The ready event is vital, it means that only _after_ this will your bot start reacting to information
+ * received from Discord
+ */
+
+var channel = client.channels.cache.find(channel => channel.id === '688142568294580231');
+client.on('ready', () => {
+ var channel = client.channels.cache.find(channel => channel.id === '688142568294580231'); //ved ikke om den kan fjernes 
+ 
+});
 
  const embed = new MessageEmbed()
     
    .setColor('#32CD32')
   .setTitle('supremenewyork.com')
-  .setURL('https://supremenewyork.dk/shop/' + restockedItems[i])
-  .setAuthor('CYS found another cyle, be fast.', '', '')
-  .setDescription('CYS found another cyle, be fast')
+  .setURL('https://supremenewyork.com/shop/' + restockedItems[i])
+
+  .setDescription('Cook your shit just checked for restocks.')
   
 
   .addFields(
@@ -227,13 +248,17 @@ function postToDiscord(restockedItems){
     { name: 'SIZE', value: 'MEDIUM', inline: true },
     
   )
-  embed.addField("CHECKOUT", " [SUPREME]('https://supremenewyork.dk/shop/' + restockedItems[i])")
+  embed.addField("CHECKOUT", " [SUPREME]('https://supremenewyork.com/shop/' + restockedItems[i])")
   //.addField('Inline field title', 'test', false)
   .setImage('https://assets.supremenewyork.com/184829/ma/UdOuR0JdzFg.jpg')
   .setTimestamp()
-  .setFooter('Cook your shit', 'https://cdn.discordapp.com/attachments/352526312788721675/688427183290843224/Artboard_1.png');
+  .setFooter('Cook your shit', 'https://cdn.discordapp.com/attachments/352526312788721675/688516950543958113/Untitled-1.jpg');
      
     message.channel.send(embed);
+
+
+
+
 
 
 
