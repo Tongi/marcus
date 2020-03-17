@@ -53,7 +53,7 @@ client.on('ready', () => {
 
 
 var channel = client.channels.cache.find(channel => channel.id === '688142568294580231'); //ved ikke om den kan fjernes
-client.on('message', message => {
+/*client.on('message', message => {
   // If the message is "test"
   if (message.content === 'test') {
     const embed = new MessageEmbed()
@@ -83,10 +83,10 @@ client.on('message', message => {
     message.channel.send(embed);
   }
 });
-
+*/
 
 //token -> burde gemme den i en config (?)
-client.login('Njg3ODA4MDg3MzY4NjYzMDQz.Xm0y-g.MOucoyUB1IUw-2QrzUxDbeAuNJw');
+client.login('');
 
 
 
@@ -95,12 +95,7 @@ client.login('Njg3ODA4MDg3MzY4NjYzMDQz.Xm0y-g.MOucoyUB1IUw-2QrzUxDbeAuNJw');
 console.log('checker for restocks.');
 
 function initialize(){
-  const proxyInput = fs.readFileSync('proxies.txt').toString().split('\n');
-  for (let p = 0; p < proxyInput.length; p++) {
-      proxyInput[p] = proxyInput[p].replace('\r', '').replace('\n', '');
-      if (proxyInput[p] != '')
-          proxyList.push(proxyInput[p]);
-  }
+
   const userAgentInput = fs.readFileSync('useragents.txt').toString().split('\n');
   for (let u = 0; u < userAgentInput.length; u++) {
       userAgentInput[u] = userAgentInput[u].replace('\r', '').replace('\n', '');
@@ -118,11 +113,11 @@ function scrape(arr) {
       url: 'https://www.supremenewyork.com/shop/all',
       headers: generateRandomUserAgent(),
       timeout:60000,
-      proxy: formatProxy(proxyList[Math.floor(Math.random() * proxyList.length)])
+     
   }, function(error, response, html) {
 
       if (response && response.statusCode != 200) {
-          console.log('Cannot make the Request');
+          console.log(response.statusCode);
           return null;
       }
 
@@ -209,29 +204,22 @@ function postToDiscord(restockedItems){
 
 'use strict';
 
-/**
- * An example of how you can send embeds
- */
-
-// Extract the required classes from the discord.js module
 const { Client, MessageEmbed } = require('discord.js');
 
-// Create an instance of a Discord client
+
 const client = new Client();
 
-/**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
- */
+
 
 var channel = client.channels.cache.find(channel => channel.id === '688142568294580231');
 client.on('ready', () => {
  var channel = client.channels.cache.find(channel => channel.id === '688142568294580231'); //ved ikke om den kan fjernes 
  
 });
-
+client.on('message', message => {
+ 
+   {
  const embed = new MessageEmbed()
-    
    .setColor('#32CD32')
   .setTitle('supremenewyork.com')
   .setURL('https://supremenewyork.com/shop/' + restockedItems[i])
@@ -256,7 +244,7 @@ client.on('ready', () => {
      
     message.channel.send(embed);
 
-
+}});
 
 
 
